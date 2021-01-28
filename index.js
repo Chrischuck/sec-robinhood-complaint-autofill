@@ -22,6 +22,10 @@
   const ISSUER_ID = '00N30000003ueVQ';
   const ISSUER = 'Robinhood Financial LLC';
   const COMPLAINT_ID = 'description';
+  const INVESTOR_TYPE_ID = '00N30000003ueUq';
+  const INVESTOR_TYPE = 'Individual Investor';
+  // Thank you u/Cool-Sage
+  // https://www.reddit.com/r/wallstreetbets/comments/l6wmwx/make_sure_to_file_a_complaint_to_sec_about/gl3dwkh?utm_source=share&utm_medium=web2x&context=3
   const COMPLAINT = `
   This morning I, and millions of other retail investors, were blocked from purchasing (entering new buy orders) on the Robinhood platform, without notice. This clear example of market manipulation has forced the stock down from over $500 in after-hours to less than $300 as of this writing. Meanwhile, hedge fund interests are NOT blocked from buying the shares being traded and the lower price obviously benefits them.
 
@@ -40,10 +44,24 @@
     [SECURITY_TICKER_ID]: SECURITY_TICKER,
     [ISSUER_ID]: ISSUER,
     [COMPLAINT_ID]: COMPLAINT,
+    [INVESTOR_TYPE_ID]: INVESTOR_TYPE,
+  };
+
+  const inputIdToSelectId = {
+    [INVESTOR_TYPE_ID]: 'investorType',
+    [FIRM_TYPE_ID]: 'entityType',
+    [FIRM_STATE_ID]: 'entityStateCd',
+    [FIRM_COUNTRY_ID]: 'entityCountryCd',
+    [SECURITY_TYPE]: 'securityTypeCd',
   };
 
   Object.keys(idToValue).forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.value = idToValue[id];
+    if (inputIdToSelectId[id]) {
+      const select = document.getElementById(inputIdToSelectId[id]);
+      console.log(select.onchange);
+      select.onchange();
+    }
   });
-})();
+}.bind(this)());
