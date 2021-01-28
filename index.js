@@ -52,7 +52,7 @@
     [FIRM_TYPE_ID]: 'entityType',
     [FIRM_STATE_ID]: 'entityStateCd',
     [FIRM_COUNTRY_ID]: 'entityCountryCd',
-    [SECURITY_TYPE]: 'securityTypeCd',
+    [SECURITY_TYPE_ID]: 'securityTypeCd',
   };
 
   Object.keys(idToValue).forEach((id) => {
@@ -60,8 +60,14 @@
     if (el) el.value = idToValue[id];
     if (inputIdToSelectId[id]) {
       const select = document.getElementById(inputIdToSelectId[id]);
-      console.log(select.onchange);
-      select.onchange();
+
+      for (var i = 0; i < select.options.length; ++i) {
+        const option = select.options[i];
+
+        if (idToValue[id] === option.innerHTML) {
+          select.value = option.value;
+        }
+      }
     }
   });
 }.bind(this)());
